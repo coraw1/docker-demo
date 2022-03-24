@@ -2,9 +2,8 @@ name: Deploy to docker hub 1.0
 
 on: 
   push:
-    branches: [main]
-    
-
+    branches: 
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest

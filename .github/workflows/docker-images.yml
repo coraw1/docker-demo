@@ -1,0 +1,21 @@
+name: Deploy to docker hub
+
+on: 
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: action/checkout@v2
+    - name: Docker login
+      env: 
+        DOCKER_USER: ${{secrets.DOCKER_USER}}
+        DCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    - name: Docker build images for nodejs project
+      run: docker build . -f Dockerfile --tag coraw1/nodejs-github-wcd-demo:latest
+    - name: Docker push to docker hub account
+      run: docker push coraw1/nodejs-github-wcd-demo:latest 
